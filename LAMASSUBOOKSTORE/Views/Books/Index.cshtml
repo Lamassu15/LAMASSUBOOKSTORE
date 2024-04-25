@@ -1,0 +1,47 @@
+﻿@model IEnumerable<LAMASSUBOOKSTORE.Models.Book>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<div class="card" style="width: 12rem; height: fit-content;">
+    @foreach (var item in Model)
+    {
+        <img class="card-img-top" src="@item.ImageUrl" alt="Card image cap">
+        <div class="card-body">
+            <h6 class="card-subtitle mb-2 text-muted">Author: @item.Author.Name</h6>
+            <h5 class="card-title">Title: @item.Title</h5>
+            <p class="card-text">Bio : @item.Bio</p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Price : @item.Price.ToString("c")</li>
+        </ul>
+        <div class="card-body">
+            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+        </div>
+        <div class="card-body">
+            <a asp-action="Buy" asp-route-id="@item.Id" class="btn btn-primary">Add to Cart</a>
+        </div>
+    }
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        var output = document.getElementById('ProfilePicturePreview');
+        output.src = $("#ImageUrl").val();
+    })
+
+    $("#ImageUrl").on("change", function () {
+        var output = document.getElementById('ProfilePicturePreview');
+        output.src = $(this).val();
+    })
+</script>
